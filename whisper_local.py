@@ -3,9 +3,6 @@ import subprocess
 
 class Whisper:
     
-    _dir_changed = False
-
-    
     @classmethod
     def _run_command(cls, args):
         """Run command, transfer stdout/stderr back into Streamlit and manage error"""
