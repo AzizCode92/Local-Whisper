@@ -47,16 +47,6 @@ def download_model(model_type):
         st.success(f"Model {model_type} already exists")
     return model_path
 
-@st.cache(persist=True,allow_output_mutation=False,show_spinner=True,suppress_st_warning=True)
-def display_transcript(temp_wav_file_path):
-    with st.spinner(f"Displaying Transcript... 💫"):
-        with open(f"{temp_wav_file_path}.txt", 'r') as text_file:
-            transcript_text = text_file.read()
-            st.subheader("Transcript Text")
-            st.code(transcript_text, language="text")
-            st.success("Transcript displayed")
-
-
 
 st.title("Local Whisper")
 st.info('✨ Supports all popular audio formats - WAV, MP3, MP4, OGG, WMA, AAC, FLAC, FLV 😉')
@@ -75,7 +65,9 @@ if uploaded_file is not None:
         st.audio(temp_wav_file_path, format="audio/*")
     
     with col2:
-        whisper_model_type = st.radio("Please choose your model type", AVAILABLE_MODELS)
+        #whisper_model_type = st.radio("Please choose your model type", AVAILABLE_MODELS)
+        whisper_model_type = st.selectbox("Please choose your model type", AVAILABLE_MODELS)
+        
         if not os.path.exists(os.path.join(MODEL_PATH, f"ggml-{whisper_model_type}.bin")):
             whisper_model_path = download_model(whisper_model_type)
         else:
@@ -87,7 +79,11 @@ if uploaded_file is not None:
             if not os.path.exists(f"{temp_wav_file_path}.txt"):
                 Whisper._run_command("make -C whisper-cpp main")
                 Whisper._run_command(f"./whisper-cpp/main --language auto --output-txt true -m whisper-cpp/models/ggml-{whisper_model_type}.bin -f {temp_wav_file_path}")
-            else:
-                display_transcript(temp_wav_file_path)
+        
+        with open(f"{temp_wav_file_path}.txt", 'r') as text_file:
+            transcript_text = text_file.read()
+            st.subheader("Transcript Text")
+            st.code(transcript_text, language="text")
+            st.success("Transcript displayed")
 else:
     st.warning('Please upload your audio file')
