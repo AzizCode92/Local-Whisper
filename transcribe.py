@@ -8,7 +8,7 @@ from constants import *
 
 
 st.set_page_config(
-    page_title="Whisper.cpp",
+    page_title="Local Whisper",
     page_icon="musical_note",
     layout="wide",
     initial_sidebar_state="auto",
@@ -49,10 +49,12 @@ def download_model(model_type):
 
 @st.cache(persist=True,allow_output_mutation=False,show_spinner=True,suppress_st_warning=True)
 def display_transcript(temp_wav_file_path):
-    with open(f"{temp_wav_file_path}.txt", 'r') as text_file:
-        transcript_text = text_file.read()
-        st.subheader("Transcript Text")
-        st.code(transcript_text, language="text")
+    with st.spinner(f"Displaying Transcript... 💫"):
+        with open(f"{temp_wav_file_path}.txt", 'r') as text_file:
+            transcript_text = text_file.read()
+            st.subheader("Transcript Text")
+            st.code(transcript_text, language="text")
+            st.success("Transcript displayed")
 
 
 
@@ -86,9 +88,6 @@ if uploaded_file is not None:
                 Whisper._run_command("make -C whisper-cpp main")
                 Whisper._run_command(f"./whisper-cpp/main --language auto --output-txt true -m whisper-cpp/models/ggml-{whisper_model_type}.bin -f {temp_wav_file_path}")
             else:
-                with open(f"{temp_wav_file_path}.txt", 'r') as text_file:
-                    transcript_text = text_file.read()
-                    st.text_area("Transcript Text", transcript_text, height=300)
-
+                display_transcript(temp_wav_file_path)
 else:
     st.warning('Please upload your audio file')

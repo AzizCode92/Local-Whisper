@@ -1,9 +1,9 @@
-# transcribe_podcast
+# Local-Whisper
 
-Transcribe-podcast Streamlit Application
+Local-Whisper Streamlit Application
 
 # Introduction
-Transcribe-podcast is a Minimal Viable Product (MVP) built as a Streamlit application that leverages the capabilities of the Whisper technology to accurately transcribe audio content. Through this web app, users can easily upload audio files, select a Whisper model, and get a transcribed text. This open-source project aims to provide a user-friendly interface for Whisper-CPP, which is a submodule of our Git repository. Please do keep in mind that, being an MVP, the product's primary focus is to demonstrate the core functionality, thus it may be less than perfect. We welcome feedback and contributions for improvement.
+Local-Whisper is a Minimal Viable Product (MVP) built as a Streamlit application that leverages the capabilities of the Whisper technology to accurately transcribe audio content. Through this web app, users can easily upload audio files, select a Whisper model, and get a transcribed text. This open-source project aims to provide a user-friendly interface for Whisper-CPP, which is a submodule of our Git repository. Please do keep in mind that, being an MVP, the product's primary focus is to demonstrate the core functionality, thus it may be less than perfect. We welcome feedback and contributions for improvement.
 
 ## Features
 
@@ -25,7 +25,7 @@ Whisper-CPP
 
 Clone the repository into your local system:
 ```
-git clone --recursive https://github.com/AzizCode92/transcribe_podcast.git
+git clone --recursive https://github.com/AzizCode92/Local-Whisper.git
 ```
 The --recursive flag is used to clone the whisper-cpp submodule as well.
 Navigate to the project directory and install Python dependencies:
